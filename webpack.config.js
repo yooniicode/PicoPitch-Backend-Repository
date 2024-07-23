@@ -1,16 +1,45 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 
-export default {
+module.exports = {
     mode: 'development',
-    entry: './index.js',
+    context: path.resolve(__dirname),
+    entry: {
+        app: './src/index.js',
+    },
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    }
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        fallback: {
+            "http": require.resolve("http-browserify"),
+            "util": require.resolve("util/"),
+            "path": require.resolve("path-browserify"),
+        },
+    },
+    plugins: [
+        new NodePolyfillPlugin()
+    ],
+    target: 'node',
+    externalsPresets: {
+        node: true,
+    },
+    externals: [nodeExternals()],
 };
