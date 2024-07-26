@@ -4,14 +4,16 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 
 module.exports = {
+
     mode: 'development',
     context: path.resolve(__dirname),
     entry: {
-        app: './src/index.js',
+        app: './index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
+        libraryTarget: 'commonjs2'
     },
     module: {
         rules: [
@@ -21,6 +23,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-transform-modules-commonjs'] // 여기 추가
                     },
                 },
                 exclude: /node_modules/,
