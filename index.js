@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import { response } from './config/response.js';
-import { BaseError } from './config/error.js';
 import { status } from './config/response.status.js';
 import { healthRoute } from './src/routes/health.route.js';
 
@@ -27,17 +26,11 @@ app.use('/health', healthRoute);
 
 app.get('/', (req, res, next) => {
     res.send(response(status.SUCCESS, "루트 페이지!"));
-})
+});
 
 // error handling
 app.use((req, res, next) => {
-    const err = new BaseError({
-        status: 404,
-        isSuccess: false,
-        code: 1004,
-        message: 'Not Found'
-    });
-    next(err);
+    res.send(response(status.BAD_REQUEST, "Base Error"));
 });
 
 app.use((err, req, res, next) => {
