@@ -45,7 +45,9 @@ jobs:
 #          aws-region: ap-northeast-2
 
       # npm install for ci
-      - run: |
+
+      - name: npm install
+        run: |
           npm install
           npm install moment-timezone
 
