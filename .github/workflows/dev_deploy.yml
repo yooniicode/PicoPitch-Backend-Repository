@@ -34,19 +34,16 @@ jobs:
           unzip awscliv2.zip
           which aws
           sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-          
+
       # Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
       # npm install for ci
       - run: |
           npm install
-          npm i passport passport-kakao -S
           npm install moment-timezone
 
 
@@ -79,7 +76,7 @@ jobs:
       # 현재 시간 출력 (위에서 얻은 build 시점의 시간 보여주기)
       - name: Show Current Time
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
-        shell: bash 
+        shell: bash
 
       # Deploy to Elastic Beanstalk
       - name: Deploy to EB
@@ -87,10 +84,14 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: ${{ secrets.APPLICATION_NAME }}
-          environment_name: ${{ secrets.ENVIRONMENT_NAME }}
-          region: ${{ secrets.AWS_REGION }}
-          deployment_package: dist/deploy.zip
+          application_name: housekeeping-dev
+          environment_name: Housekeeping-dev-env
+          version_label: github-action-${{ steps.current-time.outputs.formattedTime }}  # version_label은 이전에 배포한 label과 중복되면 안됨!
           use_existing_version_if_available: true
-          version_label: "v1.0.${{ github.run_number }}-${{ github.SHA }}"
-          wait_for_deployment: false
+          region: ap-northeast-2
+          deployment_package: dist/deploy.zip
+          wait_for_deployment: false  # 바로 Beanstalk으로 넘어갈 수 있도록 함
+            
+      # 그냥 다 했다고 출력하기
+      - name: Deployed!
+        run: echo App deployed to ELB
