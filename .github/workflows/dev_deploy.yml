@@ -4,6 +4,7 @@ on:
   pull_request:      # pull request -> merge 가 되었을 때 Github Action 실행!
     types: [ closed ]
   workflow_dispatch: # 수동 실행도 가능하도록 함
+
 jobs:
   build:
     name: Build and Test
@@ -41,6 +42,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
       # npm install for ci
       - run: |
           npm install
@@ -61,7 +64,7 @@ jobs:
           cp -r swagger dist
           cd dist
           zip -r deploy.zip .
-          
+
       - name: Get Zip Inside
         run: zipinfo -1 dist/deploy.zip
 
