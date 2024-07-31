@@ -49,12 +49,6 @@ jobs:
           npm install
           npm install moment-timezone
 
-
-      # Build
-      #- run: npm run build
-      # Unit test
-      #- run: npm run test:unit
-
       - name: Generate deployment package
         run: |
           cp -R .platform dist
