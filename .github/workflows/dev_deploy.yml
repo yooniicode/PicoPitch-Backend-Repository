@@ -63,6 +63,7 @@ jobs:
           cp package.json dist/package.json
           cp package-lock.json dist/package-lock.json
           cp Procfile dist/Procfile
+          cp -r config dist/
           cd dist
           mkdir config
           cp ../config/swagger.config.js ./config/swagger.config.js
