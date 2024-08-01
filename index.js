@@ -7,7 +7,7 @@ import cors from 'cors';
 import { specs } from './config/swagger.config.js';
 import { response } from './config/response.js';
 import { status } from './config/response.status.js';
-import { healthRoute } from './src/routes/health.route.js';
+import { healthRoute } from './src/health/health.route.js';
 
 dotenv.config();    // .env 파일 사용 (환경 변수 관리)
 
