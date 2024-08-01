@@ -2,13 +2,13 @@ name: HouseKeeping Dev CI/CD
 
 on:
   pull_request:      # pull request -> merge 가 되었을 때 Github Action 실행!
-    types: [ closed ]
+    types: [closed]
   workflow_dispatch: # 수동 실행도 가능하도록 함
 
 jobs:
   build:
-    # pull 요청이 dev에 merge 되었을 때 아래 steps를 실행
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'dev'
+    # 수동 실행이거나, pull 요청이 dev에 merge 되었을 때 아래 steps를 실행
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'dev')
 
     runs-on: ubuntu-latest  # 우분투 최신 버전으로 실행
 
