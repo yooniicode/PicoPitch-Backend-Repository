@@ -63,6 +63,9 @@ jobs:
           cp package.json dist/package.json
           cp package-lock.json dist/package-lock.json
           cp Procfile dist/Procfile
+          cp index.js dist/index.js
+          cp -R config dist
+          cp -R src dist
           cd dist
           zip -r deploy.zip .
 
