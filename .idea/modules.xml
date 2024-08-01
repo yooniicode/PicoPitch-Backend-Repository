@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/0731 umc.iml" filepath="$PROJECT_DIR$/0731 umc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PicoPitch-Backend.iml" filepath="$PROJECT_DIR$/.idea/PicoPitch-Backend.iml" />
     </modules>
   </component>
 </project>
