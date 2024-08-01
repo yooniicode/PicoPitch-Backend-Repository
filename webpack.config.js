@@ -4,9 +4,9 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: 'development',
-    context: __dirname,
+    context: __dirname + '/src',
     entry: {
-        app: './index.js',
+        app: '../index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -22,7 +22,6 @@ module.exports = {
                         presets: ['@babel/preset-env'],
                     },
                 },
-                exclude: /node_modules/,
             },
         ],
     },
