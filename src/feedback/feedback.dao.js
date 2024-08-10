@@ -1,5 +1,4 @@
-// dao/FeedbackDAO.js
-import {pool} from "../../config/db.connect";
+import { pool } from '../../config/db.connect';
 
 class FeedbackDAO {
     static async createFeedback(feedbackDTO) {
@@ -17,17 +16,16 @@ class FeedbackDAO {
     }
 
     static async getFeedbackByPresentationId(presentationId) {
-        const [rows] = await db.execute(`SELECT * FROM Feedback WHERE presentation_id = ?`, [presentationId]);
+        const [rows] = await pool.execute(`SELECT * FROM Feedback WHERE presentation_id = ?`, [presentationId]);
         return rows;
     }
 
-    // Additional methods for statistics
     static async getSuccessRate(presentationId) {
         const [rows] = await pool.execute(
             `SELECT (SUM(success) / COUNT(*)) * 100 AS success_rate FROM Feedback WHERE presentation_id = ?`,
             [presentationId]
         );
-        return rows[0].success_rate;
+        return rows[0]?.success_rate || 0;
     }
 
     static async getKeywords(presentationId) {
@@ -41,13 +39,13 @@ class FeedbackDAO {
              FROM Feedback WHERE presentation_id = ?`,
             [presentationId]
         );
-        return rows[0];
+        return rows[0] || { avg_decibel: null, max_decibel: null, min_decibel: null };
     }
 
     static async getAverageSpeed(presentationId) {
         const [rows] = await pool.execute(`SELECT AVG(speed) AS avg_speed FROM Feedback WHERE presentation_id = ?`, [presentationId]);
-        return rows[0].avg_speed;
+        return rows[0]?.avg_speed || null;
     }
 }
 
-module.exports = FeedbackDAO;
+export default FeedbackDAO;

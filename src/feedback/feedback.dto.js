@@ -1,25 +1,13 @@
-// dto/FeedbackDTO.js
 class FeedbackDTO {
-    constructor(id, presentationId, keyword, success, decibelLevel, speed, createdAt) {
+    constructor(id, presentationId, keyword, success, decibelLevel, speed, created_at) {
         this.id = id;
         this.presentationId = presentationId;
         this.keyword = keyword;
         this.success = success;
         this.decibelLevel = decibelLevel;
         this.speed = speed;
-        this.createdAt = createdAt;
+        this.created_at = createdAt;
     }
 }
 
-module.exports = FeedbackDTO;
-
-// dto/PresentationDTO.js
-class PresentationDTO {
-    constructor(id, title, createdAt) {
-        this.id = id;
-        this.title = title;
-        this.createdAt = createdAt;
-    }
-}
-
-module.exports = PresentationDTO;
+export default FeedbackDTO;

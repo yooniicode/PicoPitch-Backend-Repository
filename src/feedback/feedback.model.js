@@ -1,11 +1,23 @@
-// model/FeedbackModel.js
-const FeedbackDAO = require('feedback.dao.js');
-const FeedbackDTO = require('feedback.dto.js');
+import FeedbackDAO from './feedback.dao';
 
 class FeedbackModel {
     static async createFeedback(data) {
-        const feedbackDTO = new FeedbackDTO(null, data.presentationId, data.keyword, data.success, data.decibelLevel, data.speed, null);
-        return await FeedbackDAO.createFeedback(feedbackDTO);
+        try {
+            // 현재 시간 가져오기
+            const now = new Date().toISOString();
+
+            // 요청 데이터에 현재 시간 추가
+            const feedbackData = {
+                ...data,
+                created_at: now,
+                updated_at: now
+            };
+
+            const feedbackId = await FeedbackDAO.createFeedback(feedbackData);
+            return feedbackId;
+        } catch (err) {
+            throw new Error(err.message);
+        }
     }
 
     static async deleteFeedback(id) {
@@ -31,4 +43,4 @@ class FeedbackModel {
     }
 }
 
-module.exports = FeedbackModel;
+export default FeedbackModel;
