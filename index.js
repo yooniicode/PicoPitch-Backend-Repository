@@ -9,6 +9,7 @@ import { response } from './config/response.js';
 import { status } from './config/response.status.js';
 import { healthRoute } from './src/health/health.route.js';
 import { feedbackRoute } from './src/feedback/feedback.route'
+import { scriptRoute } from './src/script/script.route'
 
 dotenv.config();    // .env 파일 사용 (환경 변수 관리)
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false })); // 단순 객체 문자열 형
 
 app.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(specs));
 app.use('/feedback', feedbackRoute);
+app.use('/script', scriptRoute);
 app.use('/health', healthRoute);
 
 app.get('/', (req, res, next) => {

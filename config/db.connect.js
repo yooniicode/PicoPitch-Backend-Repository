@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
@@ -14,3 +15,11 @@ export const pool = mysql.createPool({
     queueLimit: 0,
     connectTimeout: 60000
 });
+
+const sequelize = new Sequelize('picopitch', 'root', process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect: 'mysql', // or 'postgres', 'sqlite', 'mssql', etc.
+    logging: false
+});
+
+export default sequelize;
