@@ -1,4 +1,4 @@
-import Script from '/script.model.js'
+import Script from './script.model.js'
 
 export class ScriptDAO {
     async createScript(ScriptDTO) {

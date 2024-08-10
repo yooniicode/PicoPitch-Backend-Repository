@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/db.connect.js';
-import Presentation from '../presentation/presentation.model.js'; // Make sure this file exists and is correctly implemented
+// import Presentation from '../presentation/presentation.model.js'; // Make sure this file exists and is correctly implemented
 
 const Script = sequelize.define('Script', {
     script_id: {
@@ -29,6 +29,6 @@ const Script = sequelize.define('Script', {
     timestamps: false
 });
 
-Script.belongsTo(Presentation, { foreignKey: 'ppt_id' });
+// Script.belongsTo(Presentation, { foreignKey: 'ppt_id' });
 
 export default Script;
